@@ -1,40 +1,23 @@
 'use client'
 
-import { shuffle } from "@/app/helpers/shuffle";
-import { MappedQuestion, Question } from "@/types/questionaire.types";
+import TextQuestion from "./Text.component";
+import MultipleQuestion from "./Multiple.component";
+import BooleanQuestion from "./Boolean.component";
+import { ApiQuestion } from "@/types/api.types";
 
-const mapData = (data: Question[]): MappedQuestion[] | undefined =>
-    shuffle<MappedQuestion>(data.map((data) => ({
-        ...data,
-        answers: shuffle<string>([data.correct_answer, ...data.incorrect_answers])
-    })));
-
-export default function Questionaire() { 
-    const data = mapData([{
-        "category":"Science & Nature",
-        "type":"text",
-        "difficulty":"hard",
-        "question":"Autosomal-dominant Compelling Helio-Ophthalmic Outburst syndrome is the need to do what when seeing the Sun?",
-        "correct_answer":"Sneeze",
-        "incorrect_answers":[
-            "Cough",
-            "Yawn",
-            "Hiccup"
-        ]
-    }]);
-
-    console.log(data);
-
+export default function Questionaire({questions}: { questions: ApiQuestion[]}) { 
     return (
         <form>
-            {data && data.map(({type, answers}) => (
-                <fieldset key={type}>
+            {questions && questions.map(({type, ...question}, index) => (
+                <fieldset key={`question-${index}`}>
                     {type === 'text' && (
-                        <span>
-                            {answers && answers.map((a) => 
-                                (<span>{a}</span>)
-                            )}
-                        </span>
+                        <TextQuestion question={question} />
+                    )}
+                    {type === 'multiple' && (
+                        <MultipleQuestion question={question} />
+                    )}
+                    {type === 'text' && (
+                        <BooleanQuestion question={question} />
                     )}
                 </fieldset>
             ))}

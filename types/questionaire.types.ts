@@ -1,12 +1,7 @@
-export interface Question {
-    category: string;
-    difficulty: string;
-    question: string;
-    correct_answer: string;
-    incorrect_answers: string[];
-    type: 'text' | 'boolean' | 'multiple'
-}
+import { ApiQuestion } from "./api.types";
 
-export interface MappedQuestion extends Question {
-    answers?: string[];
+export interface Question extends Omit<ApiQuestion, 'type'> {}
+
+export interface Questions {
+    question: Question;
 }
