@@ -4,7 +4,7 @@ import { ApiQuestionsProps } from "@/types/api.types";
 import Questionaire from "./components/Questionaire/Questionaire.component";
 import { getQuestionData } from "./api/questions/action";
 
-export const revalidate = false;
+export const revalidate = 0;
 
 export default async function Home() {
   // get questions
