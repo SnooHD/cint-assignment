@@ -1,14 +1,16 @@
-export interface ApiQuestion {
+export interface ApiQuestionProps {
     category: string;
     difficulty: string;
     question: string;
+    answers?: string[];
     correct_answer: string;
     incorrect_answers?: string[];
     type: 'text' | 'boolean' | 'multiple'
 }
 
-export interface ApiQuestions {
+
+export interface ApiQuestionsProps {
     response_code: number;
-    results: ApiQuestion[]
+    results: ApiQuestionProps[]
 }
 
