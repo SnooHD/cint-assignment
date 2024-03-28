@@ -5,6 +5,7 @@ import Question from "./Question.component";
 import CompleteQuestionare from "./Complete.component";
 import { QuestionaireProps } from "@/types/questionaire.types";
 import { useTransition, animated, useSpringRef } from '@react-spring/web';
+import { shuffleQuestions } from "@/app/helpers/questions";
 
 interface QuestionaireComponentProps {
     questions: QuestionaireProps[];
@@ -13,17 +14,17 @@ interface QuestionaireComponentProps {
 export default function Questionaire({questions}: QuestionaireComponentProps) {
     const [currentQuestion, setCurrentQuestion] = useState<number>(0);
 
-    const springApi = useSpringRef()
+    const springApi = useSpringRef();
     const [transitions] = useTransition(currentQuestion, () => ({
         from: {opacity: 0, x: '50%' },
         enter: {opacity: 1, x: '0'},
         leave: {opacity: 0, x: '-50%'},
         ref: springApi,
-     }))
+    }))
 
-     useLayoutEffect(() => {
-        springApi.start()
-      }, [currentQuestion])
+    useLayoutEffect(() => {
+        springApi.start();
+    }, [currentQuestion])
 
     const [answers, setAnswers] = useState<QuestionaireProps[]>(questions);
     const updateAnswer = (answer: string) => {
@@ -40,7 +41,7 @@ export default function Questionaire({questions}: QuestionaireComponentProps) {
     }
 
     const resetQuestionaire = () => {
-        setAnswers(questions);
+        setAnswers(shuffleQuestions(questions));
         setCurrentQuestion(0);
     }
 

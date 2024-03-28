@@ -1,4 +1,4 @@
-'use server'
+'use server';
 
 import { ApiQuestionsProps } from '@/types/api.types';
 import { promises as fs } from 'fs';

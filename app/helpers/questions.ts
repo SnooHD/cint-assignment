@@ -1,7 +1,7 @@
 import { ApiQuestionProps } from "@/types/api.types";
 import he from "he";
 
-export const mapQuestions = (questions: ApiQuestionProps[]):  ApiQuestionProps[] => 
+export const decodeQuestions = (questions: ApiQuestionProps[]):  ApiQuestionProps[] =>
     questions.map(
         ({question, category, incorrect_answers = [], correct_answer, ...res}) => {
             const incorrectAnswers = incorrect_answers.map((answer) => he.decode(answer));
@@ -17,6 +17,16 @@ export const mapQuestions = (questions: ApiQuestionProps[]):  ApiQuestionProps[]
                 answers
             }
         }
+    )
+
+export const shuffleQuestions = (questions: ApiQuestionProps[]):  ApiQuestionProps[] => 
+    shuffle(
+        questions.map(
+            ({answers = [], ...question}) => ({
+                ...question,
+                answers: shuffle(answers)
+            }) 
+        )
     )
 
 export function shuffle<T = unknown>(data: T[]): T[] {

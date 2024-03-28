@@ -4,7 +4,7 @@ import RadioInput from "../Form/RadioInput.component";
 interface MultipleQuestionComponentProps {
     setAnwser: Dispatch<SetStateAction<string>>;
     name: string;
-    options: string[]
+    options: string[];
 }
 
 export default function MultipleQuestion({ setAnwser, name, options }: MultipleQuestionComponentProps) {
