@@ -2,11 +2,11 @@ import { mapQuestions, shuffle } from "./helpers/questions";
 import { ApiQuestionsProps } from "@/types/api.types";
 
 import Questionaire from "./components/Questionaire/Questionaire.component";
+import { getQuestionData } from "./api/questions/action";
 
 export default async function Home() {
   // fetch data
-  const questions = await fetch('http://localhost:3000/api/questions')
-    .then(async (res) => await res.json())
+  const questions = await getQuestionData()
     .then((json: ApiQuestionsProps) => shuffle(mapQuestions(json.results)));
 
   return (
