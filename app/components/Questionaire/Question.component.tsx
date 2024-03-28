@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { QuestionaireProps } from "@/types/questionaire.types";
 import Button from "../Button/Button.component";
 import TextInput from "../Form/TextInput.component";
@@ -20,7 +20,7 @@ export default function Question({question, updateAnswer}: QuestionComponentProp
     }
 
     return (
-        <div className="space-y-4 h-[280px] flex-col flex items-start justify-end">
+        <div className="space-y-4 h-[300px] flex-col flex items-start justify-end">
             <div>
                 <h2 className="text-xl">{questionText}</h2>
                 <span className="inline-block bg-green-600 text-xs text-white px-1 rounded cursor-default" title="category">{category}</span>

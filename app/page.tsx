@@ -1,6 +1,7 @@
-import Questionaire from "./components/Questionaire/Questionaire.component";
 import { mapQuestions, shuffle } from "./helpers/questions";
 import { ApiQuestionsProps } from "@/types/api.types";
+
+import Questionaire from "./components/Questionaire/Questionaire.component";
 
 export default async function Home() {
   // fetch data

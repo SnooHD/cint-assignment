@@ -4,9 +4,13 @@ import { useLayoutEffect, useState } from "react";
 import Question from "./Question.component";
 import CompleteQuestionare from "./Complete.component";
 import { QuestionaireProps } from "@/types/questionaire.types";
-import { useTransition, animated, useSpringRef } from '@react-spring/web'
+import { useTransition, animated, useSpringRef } from '@react-spring/web';
 
-export default function Questionaire({questions}: { questions: QuestionaireProps[]}) {
+interface QuestionaireComponentProps {
+    questions: QuestionaireProps[];
+}
+
+export default function Questionaire({questions}: QuestionaireComponentProps) {
     const [currentQuestion, setCurrentQuestion] = useState<number>(0);
 
     const springApi = useSpringRef()
@@ -46,7 +50,10 @@ export default function Questionaire({questions}: { questions: QuestionaireProps
                 <animated.div style={springs} className="w-full h-full absolute top-0 left-0">
                     <div className="absolute w-full max-w-[480px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                         {index < answers.length ? (
-                            <Question question={answers[index]} updateAnswer={updateAnswer} />
+                            <>
+                                <Question question={answers[index]} updateAnswer={updateAnswer} />
+                                <span className="inline-block text-xs mt-2">Question {index + 1}/{answers.length}</span>
+                            </>
                         ) : (
                             <CompleteQuestionare answers={answers} reset={resetQuestionaire} />
                         )}

@@ -12,7 +12,7 @@ export default function CompleteQuestionare({ answers, reset }: CompleteQuestion
     const totalAnswered = answers.filter(({answer}) => answer).length;
 
     return (
-        <div className="space-y-4 h-[280px] flex-col flex items-start justify-end">
+        <div className="space-y-4 h-[300px] flex-col flex items-start justify-end">
             <h1 className="text-xl text-bold uppercase">Summary</h1>
             <p>
                 Correct: <b>{correctAnswers}</b> <br/>
@@ -20,7 +20,7 @@ export default function CompleteQuestionare({ answers, reset }: CompleteQuestion
                 Questions answered: <b>{totalAnswered}</b> <br/>
                 Final Score: <b>{(correctAnswers / answers.length) * 100}%</b>
             </p>
-            <Button onClick={reset}>Restart</Button>
+            <Button onClick={reset} title="restart">Restart</Button>
         </div>
     )
 }
