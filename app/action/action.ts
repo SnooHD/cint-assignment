@@ -1,10 +1,12 @@
 'use server';
 
 import { ApiQuestionsProps } from '@/types/api.types';
-import { promises as fs } from 'fs';
+import fs from 'fs';
+import path from 'path';
  
 export async function getQuestionData() {
-  const file = await fs.readFile(process.cwd() + '/app/api/questions/data.json', 'utf8');
+  const usersPath = path.join(process.cwd(), '/app/action/data.json');
+  const file = fs.readFileSync(usersPath, 'utf8');
   const questions = (JSON.parse(file)) as ApiQuestionsProps;
 
   return questions;
