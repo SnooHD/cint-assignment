@@ -7,10 +7,9 @@ interface QuestionComponentProps {
     question: QuestionaireProps;
     answer: string;
     setAnswer: Dispatch<SetStateAction<string>>;
-    onSubmit: () => void;
 }
 
-export default function Question({question, answer, setAnswer, onSubmit}: QuestionComponentProps){
+export default function Question({question, answer, setAnswer}: QuestionComponentProps){
     const { question: questionText, type, answers, category } = question;
 
     return (
@@ -24,10 +23,6 @@ export default function Question({question, answer, setAnswer, onSubmit}: Questi
                     label={questionText}
                     value={answer}
                     onChange={setAnswer}
-                    onKeyUp={
-                        // handle submit when pressing enter on
-                        (e) => e.key === 'Enter' && onSubmit()
-                    } 
                 />
             )}
 
@@ -36,7 +31,6 @@ export default function Question({question, answer, setAnswer, onSubmit}: Questi
                     options={answers as string[]}
                     setAnwser={setAnswer}
                     name={questionText} 
-                    onSubmit={onSubmit}
                 />
             )}
         </div>

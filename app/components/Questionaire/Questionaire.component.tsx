@@ -56,7 +56,6 @@ export default function Questionaire({questions}: QuestionaireComponentProps) {
 
         // reset answer
         setAnswer('');
-
         // go to next question
         setCurrentQuestion(currentQuestion + 1);
     }
@@ -80,7 +79,6 @@ export default function Questionaire({questions}: QuestionaireComponentProps) {
                                         question={answers[index]}
                                         answer={answer}
                                         setAnswer={setAnswer}
-                                        onSubmit={onSubmit} 
                                     />
                                 ) : (
                                     <CompleteQuestionare answers={answers} />
