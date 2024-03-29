@@ -12,7 +12,7 @@ export default async function Home() {
     .then((json: ApiQuestionsProps) => decodeQuestions(json.results))
   
   return (
-    <main className="flex min-h-screen p-6 sm:p-12 md:p-18 lg:p-24">
+    <main className="flex min-h-screen p-6 sm:p-12 md:p-18 lg:p-24 overflow-hidden">
       <Questionaire questions={shuffleQuestions(questions)} />
     </main>
   );

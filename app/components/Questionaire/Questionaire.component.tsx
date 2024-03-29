@@ -6,6 +6,7 @@ import CompleteQuestionare from "./Complete.component";
 import { QuestionaireProps } from "@/types/questionaire.types";
 import { useTransition, animated, useSpringRef } from '@react-spring/web';
 import { shuffleQuestions } from "@/app/helpers/questions";
+import Button from "../Button/Button.component";
 
 interface QuestionaireComponentProps {
     questions: QuestionaireProps[];
@@ -14,20 +15,35 @@ interface QuestionaireComponentProps {
 export default function Questionaire({questions}: QuestionaireComponentProps) {
     const [currentQuestion, setCurrentQuestion] = useState<number>(0);
 
-    const springApi = useSpringRef();
-    const [transitions] = useTransition(currentQuestion, () => ({
+    // question slide animation
+    const slideRef = useSpringRef();
+    const [slideTransition] = useTransition(currentQuestion, () => ({
         from: {opacity: 0, x: '50%' },
         enter: {opacity: 1, x: '0'},
         leave: {opacity: 0, x: '-50%'},
-        ref: springApi,
+        ref: slideRef,
     }))
 
     useLayoutEffect(() => {
-        springApi.start();
+        slideRef.start();
     }, [currentQuestion])
 
+    // next button fade in animation
+    const fadeInRef = useSpringRef();
+    const [fadeInTransition] = useTransition(null, () => ({
+        from: {opacity: 0 },
+        enter: {opacity: 1},
+        ref: fadeInRef,
+    }))
+
+    useLayoutEffect(() => {
+        fadeInRef.start();
+    }, [])
+
+    // handle answers
+    const [answer, setAnswer] = useState('');
     const [answers, setAnswers] = useState<QuestionaireProps[]>(questions);
-    const updateAnswer = (answer: string) => {
+    const onSubmit = () => {
         const currentAnwser = answers[currentQuestion];
         answers[currentQuestion] = {
             ...currentAnwser,
@@ -45,22 +61,49 @@ export default function Questionaire({questions}: QuestionaireComponentProps) {
         setCurrentQuestion(0);
     }
 
+    const isComplete = () => currentQuestion < answers.length;
+
     return (
-        <form className="w-full relative" onSubmit={(e) => e.preventDefault()}>
-            {transitions((springs, index) => (
-                <animated.div style={springs} className="w-full h-full absolute top-0 left-0">
-                    <div className="absolute w-full max-w-[480px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                        {index < answers.length ? (
-                            <>
-                                <Question question={answers[index]} updateAnswer={updateAnswer} />
-                                <span className="inline-block text-xs mt-2">Question {index + 1}/{answers.length}</span>
-                            </>
-                        ) : (
-                            <CompleteQuestionare answers={answers} reset={resetQuestionaire} />
-                        )}
-                    </div>
-                </animated.div>
-            ))}
+        <form className="w-full" onSubmit={(e) => e.preventDefault()}>
+            <div className="w-full h-full flex flex-col justify-center items-start">
+                <div className="h-[240px] w-full relative">
+                    {slideTransition((springs, index) => (
+                        <animated.div style={springs} className="absolute w-full h-full top-0 left-0">
+                            <section className="absolute w-full h-full max-w-[480px] top-0 left-0">
+                                <div className="flex h-full flex-col justify-end pb-4">
+                                    {index < answers.length ? (
+                                        <Question 
+                                            question={answers[index]}
+                                            answer={answer}
+                                            setAnswer={setAnswer}
+                                            onSubmit={onSubmit} 
+                                        />
+                                    ) : (
+                                        <CompleteQuestionare answers={answers} reset={resetQuestionaire} />
+                                    )}
+                                </div>
+                            </section>
+                        </animated.div>
+                    ))}
+                </div>
+                {fadeInTransition((springs) => (
+                    <animated.div style={springs}>
+                        <Button 
+                            onClick={
+                                () => isComplete() ? onSubmit() : resetQuestionaire()
+                            } 
+                            title="next"
+                        >
+                            {isComplete() ? 'Next' : 'Restart'}
+                        </Button>
+                        <div className="text-xs mt-2 h-4">
+                            {isComplete() &&
+                                `Question ${currentQuestion + 1}/${answers.length}`
+                            }
+                        </div>
+                    </animated.div>
+                ))}
+            </div>
         </form>
     )
 }
