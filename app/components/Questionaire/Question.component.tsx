@@ -29,6 +29,7 @@ export default function Question({question, answer, setAnswer}: QuestionComponen
             {(type === 'multiple' || type === 'boolean') && (
                 <MultipleQuestion 
                     options={answers as string[]}
+                    answer={answer}
                     setAnwser={setAnswer}
                     name={questionText} 
                 />
