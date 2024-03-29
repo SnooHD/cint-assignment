@@ -54,8 +54,6 @@ export default function Questionaire({questions}: QuestionaireComponentProps) {
         // update answers
         setAnswers([...answers]);
 
-        console.log(answers)
-
         // reset answer
         setAnswer('');
 
