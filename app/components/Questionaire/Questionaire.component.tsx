@@ -64,30 +64,28 @@ export default function Questionaire({questions}: QuestionaireComponentProps) {
     const isComplete = () => currentQuestion < answers.length;
 
     return (
-        <form className="w-full" onSubmit={(e) => e.preventDefault()}>
-            <div className="w-full h-full flex flex-col justify-center items-start">
-                <div className="h-[240px] w-full relative">
+        <form className="w-full flex justify-center" onSubmit={(e) => e.preventDefault()}>
+            <div className="w-full h-full flex flex-col justify-center w-full max-w-question">
+                <div className="h-question w-full relative">
                     {slideTransition((springs, index) => (
                         <animated.div style={springs} className="absolute w-full h-full top-0 left-0">
-                            <section className="absolute w-full h-full max-w-[480px] top-0 left-0">
-                                <div className="flex h-full flex-col justify-end pb-4">
-                                    {index < answers.length ? (
-                                        <Question 
-                                            question={answers[index]}
-                                            answer={answer}
-                                            setAnswer={setAnswer}
-                                            onSubmit={onSubmit} 
-                                        />
-                                    ) : (
-                                        <CompleteQuestionare answers={answers} reset={resetQuestionaire} />
-                                    )}
-                                </div>
+                            <section className="flex h-full flex-col justify-end pb-4">
+                                {index < answers.length ? (
+                                    <Question 
+                                        question={answers[index]}
+                                        answer={answer}
+                                        setAnswer={setAnswer}
+                                        onSubmit={onSubmit} 
+                                    />
+                                ) : (
+                                    <CompleteQuestionare answers={answers} reset={resetQuestionaire} />
+                                )}
                             </section>
                         </animated.div>
                     ))}
                 </div>
                 {fadeInTransition((springs) => (
-                    <animated.div style={springs}>
+                    <animated.div style={springs} className="w-full">
                         <Button 
                             onClick={
                                 () => isComplete() ? onSubmit() : resetQuestionaire()

@@ -8,6 +8,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      maxWidth: {
+        'question': '480px'
+      },
+      height: {
+        'question': '250px'
+      }
     },
   },
   plugins: [],
