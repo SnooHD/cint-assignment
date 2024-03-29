@@ -20,7 +20,7 @@ export default function MultipleQuestion({ setAnwser, name, options, answer }: M
                         onChange={setAnwser}
                         name={radioName}
                         checked={answer === option}
-                        autoFocus={index === 0 ? true : false}
+                        autoFocus={index === 0}
                         label={option}
                     />
                 </div>
