@@ -7,14 +7,10 @@ interface RadioInputComponentProps extends Omit<InputHTMLAttributes<HTMLInputEle
 
 export default function RadioInput({onChange, label, ...attr}: RadioInputComponentProps) {
     const id = useId();
-    
-    const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-        onChange(event.target.value);
-    }
 
     return (
         <div className="cursor-pointer">
-            <input {...attr} id={id} type="radio" onChange={onInputChange} className="cursor-pointer" />
+            <input {...attr} id={id} type="radio" onChange={() => onChange(label)} className="cursor-pointer" />
             <label htmlFor={id} className="ml-2 text-base cursor-pointer">{label}</label>
         </div>
     )

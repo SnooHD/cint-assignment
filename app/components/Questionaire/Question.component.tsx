@@ -33,7 +33,12 @@ export default function Question({question, answer, setAnswer, onSubmit}: Questi
             )}
 
             {(type === 'multiple' || type === 'boolean') && (
-                <MultipleQuestion options={answers as string[]} setAnwser={setAnswer} name={questionText} />
+                <MultipleQuestion 
+                    options={answers as string[]}
+                    setAnwser={setAnswer}
+                    name={questionText} 
+                    onSubmit={onSubmit}
+                />
             )}
         </div>
     )
