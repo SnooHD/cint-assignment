@@ -53,6 +53,11 @@ export default function Questionaire({questions}: QuestionaireComponentProps) {
 
         // update answers
         setAnswers([...answers]);
+
+        // reset answer
+        setAnswer('');
+
+        // go to next question
         setCurrentQuestion(currentQuestion + 1);
     }
 
