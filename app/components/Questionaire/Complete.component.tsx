@@ -1,15 +1,20 @@
 import { QuestionProps } from "@/types/questionaire.types";
-import Button from "../Button/Button.component";
 
 interface CompleteQuestionareComponentProps {
     answers: QuestionProps[];
-    reset: () => void;
 }
 
-export default function CompleteQuestionare({ answers, reset }: CompleteQuestionareComponentProps) {
+export default function CompleteQuestionare({ answers }: CompleteQuestionareComponentProps) {
     const correctAnswers = answers.filter(({correct}) => correct).length;
     const inCorrectAnswers = answers.length - correctAnswers;
     const totalAnswered = answers.filter(({answer}) => answer).length;
+
+    const getScore = () => {
+        const result = (correctAnswers / answers.length) * 100;
+
+        // round to 1 decimal
+        return Math.round(result * 10) / 10;
+    }
 
     return (
         <div className="space-y-4">
@@ -18,7 +23,7 @@ export default function CompleteQuestionare({ answers, reset }: CompleteQuestion
                 Correct: <b>{correctAnswers}</b> <br/>
                 Wrong: <b>{inCorrectAnswers}</b> <br/>
                 Questions answered: <b>{totalAnswered}</b> <br/>
-                Final Score: <b>{(correctAnswers / answers.length) * 100}%</b>
+                Final Score: <b>{getScore()}%</b>
             </p>
         </div>
     )

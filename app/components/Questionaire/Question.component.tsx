@@ -1,6 +1,5 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { QuestionaireProps } from "@/types/questionaire.types";
-import Button from "../Button/Button.component";
 import TextInput from "../Form/TextInput.component";
 import MultipleQuestion from "./Multiple.component";
 

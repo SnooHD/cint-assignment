@@ -83,7 +83,7 @@ export default function Questionaire({questions}: QuestionaireComponentProps) {
                                         onSubmit={onSubmit} 
                                     />
                                 ) : (
-                                    <CompleteQuestionare answers={answers} reset={resetQuestionaire} />
+                                    <CompleteQuestionare answers={answers} />
                                 )}
                             </section>
                         </animated.div>
